@@ -42,10 +42,11 @@ public class NegotationOpponent
 
             if(Rnd.NextDouble() > change) 
             {
-                if (curPreference == "Price Focused");
+                if (curPreference == "Price Focused")
                 {
                    curPreference = "Time Focused";
                 }
+                else 
                 {
                     curPreference = "PriceFocus";
                 }
@@ -64,3 +65,4 @@ public class NegotationOpponent
 }
 
 }
+
