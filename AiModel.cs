@@ -54,4 +54,13 @@ public class NegotationOpponent
         }
 
     }
+
+    public Offer MakeOffer()
+{
+    if (curPreference == "Price Focused")
+        return new Offer(18.0, 28.0);
+    else
+        return new Offer(48.0, 6.0);
+}
+
 }
