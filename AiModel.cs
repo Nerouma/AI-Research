@@ -1,5 +1,4 @@
 ﻿using System;
-
 class AiModel
 {
     static void Main(string[] args)
@@ -43,7 +42,7 @@ class AiModel
                 Console.WriteLine("No Agreement Reached This Round.\n");
             }
         }
-    Console.WriteLine($"Negotiation Result: {(SN ? "Successful" : "Failed")}");
+        Console.WriteLine($"Negotiation Result: {(SN ? "Successful" : "Failed")}");
     }
 }
 
@@ -52,21 +51,21 @@ public class BayesianAgent
 {
     private readonly double[] alphaGrid; //Defines the possible values for modeling weights based on price vs time for the opponent
     private double[] posteriorValue; //Defines the probability of those values being the opponent's preference when making offers
-
+    private static readonly Random RNG = new Random();
     private readonly double minPrice, maxPrice, minTime, maxTime;
 
     private double offerRationality;
 
     public BayesianAgent(int gridSize, double minPrice, double maxPrice, double minTime, double maxTime, double offerRationality = 8.0)
     {
-        minPrice = minPrice;//Defines the range of prices that can be offered by the agent in negotiations.
-        maxPrice = maxPrice;
-        minTime = minTime;//Defines the range of times that can be offered 
-        maxTime = maxTime;
+        this.minPrice = minPrice;//Defines the range of prices that can be offered by the agent in negotiations.
+        this.maxPrice = maxPrice;
+        this.minTime = minTime;//Defines the range of times that can be offered 
+        this.maxTime = maxTime;
         offerRationality = offerRationality; //How likely the opponent is making offers based on their most rational option with their preferences in mind.
 
 
-        alphaGrid = Enumerable.Range(0, gridSize).Select(i => i / (double)(gridSize - 1)).ToArray(); 
+        alphaGrid = Enumerable.Range(0, gridSize).Select(i => i / (double)(gridSize - 1)).ToArray();
 
         posteriorValue = Enumerable.Repeat(1.0 / gridSize, gridSize).ToArray(); //These probabilities will be uniform at start since no information is available
     }
@@ -84,7 +83,7 @@ public class BayesianAgent
 
         double[] logPosterior = new double[posteriorValue.Length];
 
-        for(int i = 0; i < alphaGrid.Length; i++)
+        for (int i = 0; i < alphaGrid.Length; i++)
         {
             double alpha = alphaGrid[i];
             double opponentUtility = -(alpha * np + (1 - alpha) * nt);
@@ -97,7 +96,7 @@ public class BayesianAgent
         double maxLP = logPosterior.Max();
         double sumExp = logPosterior.Sum(lp => Math.Exp(lp - maxLP));
 
-        for(int i = 0; i < posteriorValue.Length; i++)
+        for (int i = 0; i < posteriorValue.Length; i++)
         {
             posteriorValue[i] = Math.Exp(logPosterior[i] - maxLP) / sumExp;
         }
@@ -105,10 +104,10 @@ public class BayesianAgent
 
     public Offer MakeNewOffer(int possibleOffers = 100)
     {
-        Random RNG = new Random();
+        
         (Offer newOffer, double utilityScore) best = (null, double.NegativeInfinity);
 
-        for(int i = 0; i < possibleOffers; i++)
+        for (int i = 0; i < possibleOffers; i++)
         {
             double price = RNG.NextDouble() * (maxPrice - minPrice) + minPrice;
             double time = RNG.NextDouble() * (maxTime - minTime) + minTime;
@@ -118,28 +117,28 @@ public class BayesianAgent
 
             double expectedOpponentUtility = 0;
 
-            for(int k = 0; k < alphaGrid.Length; k++)
+            for (int k = 0; k < alphaGrid.Length; k++)
             {
                 double a = alphaGrid[k];
                 double u = -(a * np + (1 - a) * nt);
                 expectedOpponentUtility += posteriorValue[k] * u;
             }
-            if(expectedOpponentUtility > best.utilityScore)
+            if (expectedOpponentUtility > best.utilityScore)
             {
                 best = (new Offer(price, time), expectedOpponentUtility);
             }
-            
+
         }
         return best.newOffer;
     }
 
     public (double mean, double mode) posteriorStats() //Used to check the posterior averages good for debugging and inspection
-    { 
+    {
         double mean = 0;
 
         for (int i = 0; i < posteriorValue.Length; i++)
         {
-            mean += alphaGrid[i] * posteriorValue[i];   
+            mean += alphaGrid[i] * posteriorValue[i];
         }
         int modeIndex = Array.IndexOf(posteriorValue, posteriorValue.Max());
         double mode = alphaGrid[modeIndex];
@@ -165,7 +164,7 @@ public class Offer
     public double Price { get; set; }
     public double cookTime { get; set; }
 
-    public Offer(double price, double waitTime) 
+    public Offer(double price, double waitTime)
     {
         Price = price;
         cookTime = waitTime;
@@ -187,16 +186,16 @@ public class NegotationOpponent
     {
         roundswithPref++;
 
-        if(roundswithPref >=  2) 
+        if (roundswithPref >= 2)
         {
             Random Rnd = new Random();
             double change = memoryDecay * (roundswithPref - 1);
 
-            if(Rnd.NextDouble() > change) 
+            if (Rnd.NextDouble() > change)
             {
-                if (curPreference == "Price Focused");
+                if (curPreference == "Price Focused") ;
                 {
-                   curPreference = "Time Focused";
+                    curPreference = "Time Focused";
                 }
                 {
                     curPreference = "PriceFocus";
@@ -215,8 +214,5 @@ public class NegotationOpponent
             return new Offer(48.0, 6.0);
     }
 
-    
+
 }
-
-
-
