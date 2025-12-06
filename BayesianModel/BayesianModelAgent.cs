@@ -10,10 +10,15 @@ class AiModel
     public static int successes = 0;
     public static int fails = 0;
     public static int triesPerRound = 0;
+    public static List<double> priceList = new List<double>();
+    public static List<double> timeList = new List<double>();
+    public static List<int> offersRound = new List<int>();
+    public static double memStrength;
     static void Main(string[] args)
     {
         double minPrice = 10, minTime = 10;
-        double maxPrice = 48.0, maxTime = 28.0, memStrength;
+        double maxPrice = 48.0, maxTime = 28.0;
+        //public double memStrength;
        
         string filePath = "C:\\Users\\secre\\Documents\\AI-Research\\BayesianModel\\sampledata.txt";
         Console.WriteLine("Enter memory strength (0 to 1): ");
@@ -46,6 +51,7 @@ class AiModel
                 }
                 Console.WriteLine($"Total amount of Successful negotiations: {successes}\nTotal amount of Failed Negotiations: " +
                     $"{fails}\nTotal amount of offers made each round before a successful offer: {triesPerRound}");
+                ClosingStats();
             }
         }
         catch (Exception ex)
@@ -64,7 +70,6 @@ class AiModel
         opponent.memoryDecayRate(memDecay);
         //SN for "Successful Negotiation"
         bool SN = false;
-        //int fails = 0, successes = 0;
         opponent.curPreference = opponent.setPreference();
         for (int round = 0; round < 10; round++)
         {
@@ -84,6 +89,8 @@ class AiModel
                 SN = true;
                 Console.WriteLine("Negotiation Successful on Price!\n");
                 successes++;
+                priceList.Add(ourOffer.Price);
+                timeList.Add(ourOffer.cookTime);
                 break;
             }
             else if (opponent.curPreference == "Time Focused" && ourOffer.cookTime <= timeMax)
@@ -91,6 +98,8 @@ class AiModel
                 SN = true;
                 Console.WriteLine("Negotiation Successful on Time!\n");
                 successes++;
+                priceList.Add(ourOffer.Price);
+                timeList.Add(ourOffer.cookTime);
                 break;
             }
             else
@@ -99,9 +108,31 @@ class AiModel
                 triesPerRound++;
             }
         }
-        Console.WriteLine($"Negotiation Result: {(SN ? "Successful" : "Failed")}"); 
-        if (!SN)
-            fails++;
+        Console.WriteLine($"Negotiation Result: {(SN ? "Successful" : "Failed")}");
+        offersRound.Add(triesPerRound);
+        if (!SN) {
+            fails++; 
+        }
+    }
+
+    public static void ClosingStats()
+    {
+        using (StreamWriter w = new StreamWriter("C:\\Users\\secre\\Documents\\AI-Research\\BayesianModel\\TestRun.txt", true))
+        {
+            w.WriteLine($"\nMemory Strength of Agent: {memStrength}\n" +
+                $"Total amount of Successful negotiations: {successes}\n" +
+                $"Total amount of Failed Negotiations: " + $"{fails}\n" +
+                $"Average amount of offers made each round: {triesPerRound/offersRound.Count}\n\n" +
+                $"Stats of the successful offers:" +
+                    $"\n\tAverage price {priceList.Average()}" +
+                    $"\n\tMinimum price {priceList.Min()}" + 
+                    $"\n\tMaximum price {priceList.Max()}" +
+                    $"\n\n\tAverage cooking time {timeList.Average()}"+
+                    $"\n\tMinimum cooking time {timeList.Min()}"+
+                    $"\n\tMaximum cooking time {timeList.Max()}");
+            
+        }
+        //w.Close();
     }
 }
 

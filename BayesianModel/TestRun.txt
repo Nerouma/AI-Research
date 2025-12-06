@@ -1,0 +1,26 @@
+Total amount of Successful negotiations: 78
+Total amount of Failed Negotiations: 23
+Average amount of offers made each round 2
+
+Stats of the successful offers:
+Average price 27.315
+Minimum price 10.04
+Maximum price 56.97
+
+Average cooking time 22.915769230769225
+Minimum cooking time 10.36
+Maximum cooking time 53.63
+
+Memory Strength of Agent: 0.9
+Total amount of Successful negotiations: 82
+Total amount of Failed Negotiations: 19
+Average amount of offers made each round: 1
+
+Stats of the successful offers:
+	Average price 28.52109756097561
+	Minimum price 10.14
+	Maximum price 56.96
+
+	Average cooking time 22.352195121951222
+	Minimum cooking time 10.1
+	Maximum cooking time 50.3
