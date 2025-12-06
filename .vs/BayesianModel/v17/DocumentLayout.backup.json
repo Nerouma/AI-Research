@@ -3,8 +3,8 @@
   "WorkspaceRootPath": "C:\\Users\\secre\\Documents\\AI-Research\\",
   "Documents": [
     {
-      "AbsoluteMoniker": "D:0:0:{C92DE8B9-B382-402F-8A85-7E8E007C8470}|BayesianModel\\BayesianModel.csproj|c:\\users\\secre\\documents\\ai-research\\bayesianmodel\\program.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{C92DE8B9-B382-402F-8A85-7E8E007C8470}|BayesianModel\\BayesianModel.csproj|solutionrelative:bayesianmodel\\program.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+      "AbsoluteMoniker": "D:0:0:{C92DE8B9-B382-402F-8A85-7E8E007C8470}|BayesianModel\\BayesianModel.csproj|c:\\users\\secre\\documents\\ai-research\\bayesianmodel\\bayesianmodelagent.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{C92DE8B9-B382-402F-8A85-7E8E007C8470}|BayesianModel\\BayesianModel.csproj|solutionrelative:bayesianmodel\\bayesianmodelagent.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     }
   ],
   "DocumentGroupContainers": [
@@ -19,12 +19,12 @@
             {
               "$type": "Document",
               "DocumentIndex": 0,
-              "Title": "Program.cs",
-              "DocumentMoniker": "C:\\Users\\secre\\Documents\\AI-Research\\BayesianModel\\Program.cs",
-              "RelativeDocumentMoniker": "BayesianModel\\Program.cs",
-              "ToolTip": "C:\\Users\\secre\\Documents\\AI-Research\\BayesianModel\\Program.cs",
-              "RelativeToolTip": "BayesianModel\\Program.cs",
-              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA==",
+              "Title": "BayesianModelAgent.cs",
+              "DocumentMoniker": "C:\\Users\\secre\\Documents\\AI-Research\\BayesianModel\\BayesianModelAgent.cs",
+              "RelativeDocumentMoniker": "BayesianModel\\BayesianModelAgent.cs",
+              "ToolTip": "C:\\Users\\secre\\Documents\\AI-Research\\BayesianModel\\BayesianModelAgent.cs",
+              "RelativeToolTip": "BayesianModel\\BayesianModelAgent.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAP0AAAALAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
               "WhenOpened": "2025-12-05T16:58:48.642Z",
               "EditorCaption": ""

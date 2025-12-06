@@ -1,9 +1,50 @@
 ﻿using System;
 class AiModel
 {
+    //StreamReader r = new StreamReader("data.txt");
+    //public double minPrice = 1.0, minTime = 1.0;
+    //public double maxPrice, maxTime;
+    //public List<double> priceList = new List<double>();
+    //priceList = r.readLine();
     static void Main(string[] args)
     {
-        testRun(11, 10.0, 50.0, 5.0, 30.0);
+        double minPrice = 10.0, minTime = 10.0;
+        double maxPrice, maxTime;
+        int i = 0;
+        string filePath = "C:\\Users\\secre\\Documents\\AI-Research\\BayesianModel\\sampledata.txt";
+        try
+        {
+            using (StreamReader r = new StreamReader(filePath))
+            {
+                while (!r.EndOfStream) {
+                    
+                    string line = r.ReadLine();
+                    string[] values = line.Split(", ");
+                    List<double> List = new List<double>();
+                    foreach (string value in values)
+                    {
+                        if (double.TryParse(value, out double price))
+                        {
+                            List.Add(price);
+                        }
+                        else
+                        {
+                            Console.WriteLine($"Invalid data: {value}");
+                            break;
+                        }
+                    }
+                    testRun(100, minPrice, List[0], minTime, List[1]);
+                    //i += 2;
+                }
+            }
+        }
+        catch (Exception ex)
+        {
+            Console.WriteLine($"Error reading data file: {ex.Message}");
+            return;
+        }
+        //StreamReader r = new StreamReader("data.txt");
+        //priceList = r.ReadLine().Split(',');
     }
 
     public static void testRun(int grid, double priceMin, double priceMax, double timeMin, double timeMax)
@@ -12,13 +53,14 @@ class AiModel
         NegotationOpponent opponent = new NegotationOpponent();
         //SN for "Successful Negotiation"
         bool SN = false;
-
+        opponent.curPreference = opponent.setPreference();
         for (int round = 0; round < 10; round++)
         {
             //Opponent update preference only if dynamic
+
             opponent.SwapPreference(round);
             Offer oppOffer = opponent.MakeOffer();
-            Console.WriteLine($"Round {round + 1}: Opponent Preference: {opponent.curPreference}, Offer: {oppOffer}");
+            Console.WriteLine($"Round {round + 1}: Opponent Preference: {opponent.curPreference}, Original Offer: {oppOffer}");
             agent.updatePosterior(oppOffer);
 
             //counter offer
@@ -109,11 +151,14 @@ public class BayesianAgent
 
         for (int i = 0; i < possibleOffers; i++)
         {
-            double price = RNG.NextDouble() * (maxPrice - minPrice) + minPrice;
-            double time = RNG.NextDouble() * (maxTime - minTime) + minTime;
+            double price = Math.Round((RNG.NextDouble() * (maxPrice - minPrice)) + minPrice, 2);
+            double time = Math.Round((RNG.NextDouble() * (maxTime - minTime)) + minTime, 2);
 
             double np = Normalize(price, minPrice, maxPrice);
             double nt = Normalize(time, minTime, maxTime);
+
+            //np = Math.Round(np, 2);
+            //nt = Math.Round(nt, 2);
 
             double expectedOpponentUtility = 0;
 
@@ -181,7 +226,7 @@ public class NegotationOpponent
     public string curPreference { get; set; }
     public int roundswithPref = 0;
     public double memoryDecay = 0.7;
-
+    
     public void SwapPreference(int round)
     {
         roundswithPref++;
@@ -204,6 +249,15 @@ public class NegotationOpponent
             }
         }
 
+    }
+
+    public string setPreference()
+    {
+        Random Rnd = new Random();
+        if (Rnd.NextDouble() > 0.5)
+            return "Price Focused";
+        else
+            return "Time Focused";
     }
 
     public Offer MakeOffer()

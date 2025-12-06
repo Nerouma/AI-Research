@@ -14,7 +14,7 @@ using System.Reflection;
 [assembly: System.Reflection.AssemblyCompanyAttribute("BayesianModel")]
 [assembly: System.Reflection.AssemblyConfigurationAttribute("Debug")]
 [assembly: System.Reflection.AssemblyFileVersionAttribute("1.0.0.0")]
-[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+888541d740e325fbd68e3a62b0a01435cf42f5c3")]
+[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+da35ae46552781aa2c49453c4e50d87db0c1f72d")]
 [assembly: System.Reflection.AssemblyProductAttribute("BayesianModel")]
 [assembly: System.Reflection.AssemblyTitleAttribute("BayesianModel")]
 [assembly: System.Reflection.AssemblyVersionAttribute("1.0.0.0")]

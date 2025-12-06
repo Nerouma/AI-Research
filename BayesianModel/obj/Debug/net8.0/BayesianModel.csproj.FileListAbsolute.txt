@@ -27,3 +27,7 @@ C:\Users\secre\Documents\AI-Research\BayesianModel\obj\Debug\net8.0\refint\Bayes
 C:\Users\secre\Documents\AI-Research\BayesianModel\obj\Debug\net8.0\BayesianModel.pdb
 C:\Users\secre\Documents\AI-Research\BayesianModel\obj\Debug\net8.0\BayesianModel.genruntimeconfig.cache
 C:\Users\secre\Documents\AI-Research\BayesianModel\obj\Debug\net8.0\ref\BayesianModel.dll
+C:\Users\secre\Documents\AI-Research\BayesianModel\bin\Debug\net8.0\DotLiquid.dll
+C:\Users\secre\Documents\AI-Research\BayesianModel\bin\Debug\net8.0\it\DotLiquid.resources.dll
+C:\Users\secre\Documents\AI-Research\BayesianModel\obj\Debug\net8.0\BayesianModel.csproj.AssemblyReference.cache
+C:\Users\secre\Documents\AI-Research\BayesianModel\obj\Debug\net8.0\Bayesian.423472FC.Up2Date

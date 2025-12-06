@@ -1,11 +1,57 @@
 {
   "version": 3,
   "targets": {
-    "net8.0": {}
+    "net8.0": {
+      "DotLiquid/2.3.197": {
+        "type": "package",
+        "compile": {
+          "lib/net6.0/DotLiquid.dll": {
+            "related": ".xml"
+          }
+        },
+        "runtime": {
+          "lib/net6.0/DotLiquid.dll": {
+            "related": ".xml"
+          }
+        },
+        "resource": {
+          "lib/net6.0/it/DotLiquid.resources.dll": {
+            "locale": "it"
+          }
+        }
+      }
+    }
   },
-  "libraries": {},
+  "libraries": {
+    "DotLiquid/2.3.197": {
+      "sha512": "QaJHansb139SUSPTle0i81RyCi608kWFFH4HzDEz8c9JCqJ0rXM6cjqPXTLSQNtlNgFDZ8gSsgxwFMB93P669Q==",
+      "type": "package",
+      "path": "dotliquid/2.3.197",
+      "files": [
+        ".nupkg.metadata",
+        ".signature.p7s",
+        "dotliquid.2.3.197.nupkg.sha512",
+        "dotliquid.nuspec",
+        "images/logo_nuget.png",
+        "lib/net45/DotLiquid.dll",
+        "lib/net45/DotLiquid.xml",
+        "lib/net45/it/DotLiquid.resources.dll",
+        "lib/net6.0/DotLiquid.dll",
+        "lib/net6.0/DotLiquid.xml",
+        "lib/net6.0/it/DotLiquid.resources.dll",
+        "lib/netstandard1.3/DotLiquid.dll",
+        "lib/netstandard1.3/DotLiquid.xml",
+        "lib/netstandard1.3/it/DotLiquid.resources.dll",
+        "lib/netstandard2.0/DotLiquid.dll",
+        "lib/netstandard2.0/DotLiquid.xml",
+        "lib/netstandard2.0/it/DotLiquid.resources.dll"
+      ]
+    }
+  },
   "projectFileDependencyGroups": {
-    "net8.0": []
+    "net8.0": [
+      "DotLiquid >= 2.3.197"
+    ]
   },
   "packageFolders": {
     "C:\\Users\\secre\\.nuget\\packages\\": {},
@@ -56,6 +102,12 @@
     "frameworks": {
       "net8.0": {
         "targetAlias": "net8.0",
+        "dependencies": {
+          "DotLiquid": {
+            "target": "Package",
+            "version": "[2.3.197, )"
+          }
+        },
         "imports": [
           "net461",
           "net462",

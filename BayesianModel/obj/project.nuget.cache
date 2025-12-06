@@ -1,8 +1,10 @@
 {
   "version": 2,
-  "dgSpecHash": "dJDnmpFuzXg=",
+  "dgSpecHash": "pSIxNV9Hft4=",
   "success": true,
   "projectFilePath": "C:\\Users\\secre\\Documents\\AI-Research\\BayesianModel\\BayesianModel.csproj",
-  "expectedPackageFiles": [],
+  "expectedPackageFiles": [
+    "C:\\Users\\secre\\.nuget\\packages\\dotliquid\\2.3.197\\dotliquid.2.3.197.nupkg.sha512"
+  ],
   "logs": []
 }
