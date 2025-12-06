@@ -1,17 +1,23 @@
 ﻿using System;
+using System.IO;
 class AiModel
 {
-    //StreamReader r = new StreamReader("data.txt");
+    StreamWriter w = new StreamWriter("data.txt");
     //public double minPrice = 1.0, minTime = 1.0;
     //public double maxPrice, maxTime;
     //public List<double> priceList = new List<double>();
     //priceList = r.readLine();
+    public static int successes = 0;
+    public static int fails = 0;
+    public static int triesPerRound = 0;
     static void Main(string[] args)
     {
-        double minPrice = 10.0, minTime = 10.0;
-        double maxPrice, maxTime;
-        int i = 0;
+        double minPrice = 10, minTime = 10;
+        double maxPrice = 48.0, maxTime = 28.0, memStrength;
+       
         string filePath = "C:\\Users\\secre\\Documents\\AI-Research\\BayesianModel\\sampledata.txt";
+        Console.WriteLine("Enter memory strength (0 to 1): ");
+        memStrength = Convert.ToDouble(Console.ReadLine());
         try
         {
             using (StreamReader r = new StreamReader(filePath))
@@ -33,9 +39,13 @@ class AiModel
                             break;
                         }
                     }
-                    testRun(100, minPrice, List[0], minTime, List[1]);
+                    minPrice = List[0];
+                    minTime = List[1];
+                    testRun(100, minPrice, maxPrice, minTime, maxTime, memStrength);
                     //i += 2;
                 }
+                Console.WriteLine($"Total amount of Successful negotiations: {successes}\nTotal amount of Failed Negotiations: " +
+                    $"{fails}\nTotal amount of offers made each round before a successful offer: {triesPerRound}");
             }
         }
         catch (Exception ex)
@@ -47,12 +57,14 @@ class AiModel
         //priceList = r.ReadLine().Split(',');
     }
 
-    public static void testRun(int grid, double priceMin, double priceMax, double timeMin, double timeMax)
+    public static void testRun(int grid, double priceMin, double priceMax, double timeMin, double timeMax, double memDecay)
     {
         BayesianAgent agent = new BayesianAgent(grid, priceMin, priceMax, timeMin, timeMax);
         NegotationOpponent opponent = new NegotationOpponent();
+        opponent.memoryDecayRate(memDecay);
         //SN for "Successful Negotiation"
         bool SN = false;
+        //int fails = 0, successes = 0;
         opponent.curPreference = opponent.setPreference();
         for (int round = 0; round < 10; round++)
         {
@@ -70,21 +82,26 @@ class AiModel
             if (opponent.curPreference == "Price Focused" && ourOffer.Price <= priceMax)
             {
                 SN = true;
-                Console.WriteLine("Negotiation Successful on Price!");
+                Console.WriteLine("Negotiation Successful on Price!\n");
+                successes++;
                 break;
             }
             else if (opponent.curPreference == "Time Focused" && ourOffer.cookTime <= timeMax)
             {
                 SN = true;
-                Console.WriteLine("Negotiation Successful on Time!");
+                Console.WriteLine("Negotiation Successful on Time!\n");
+                successes++;
                 break;
             }
             else
             {
                 Console.WriteLine("No Agreement Reached This Round.\n");
+                triesPerRound++;
             }
         }
-        Console.WriteLine($"Negotiation Result: {(SN ? "Successful" : "Failed")}");
+        Console.WriteLine($"Negotiation Result: {(SN ? "Successful" : "Failed")}"); 
+        if (!SN)
+            fails++;
     }
 }
 
@@ -266,6 +283,16 @@ public class NegotationOpponent
             return new Offer(18.0, 28.0);
         else
             return new Offer(48.0, 6.0);
+    }
+
+    public void memoryDecayRate(double newDecay)
+    {
+        if (newDecay >= 0 && newDecay <= 1)
+            memoryDecay = newDecay;
+        else if (newDecay < 0)
+            memoryDecay = 0;
+        else
+            memoryDecay = 1;
     }
 
 
